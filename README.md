@@ -6,8 +6,9 @@ ___/\/\________/\/\/\____/\/\__________/\/\/\____/\/\__/\/\__/\/\__/\/\___/\/\__
 _/\/\/\/\/\__/\/\__/\/\____/\/\/\/\______/\______/\/\/\/\____/\/\__/\/\_____/\/\/\/\___/\/\/\/\__/\/\/\/\__
 ___________________________________________________________________________________________________________
 ```
-[![Build Status](https://travis-ci.org/gmontalvoriv/zxcvbn-cli.svg)](https://travis-ci.org/gmontalvoriv/zxcvbn-cli)
 [![npm version](https://img.shields.io/npm/v/zxcvbn-cli.svg?style=flat)](https://www.npmjs.com/package/zxcvbn-cli)
+[![Dependency Status](https://david-dm.org/gmontalvoriv/zxcvbn-cli.svg)](https://www.npmjs.com/package/zxcvbn-cli)
+[![Build Status](https://travis-ci.org/gmontalvoriv/zxcvbn-cli.svg)](https://travis-ci.org/gmontalvoriv/zxcvbn-cli)
 
 A CLI for zxcvbn ([Dropbox's realistic password strength estimator](https://blogs.dropbox.com/tech/2012/04/zxcvbn-realistic-password-strength-estimation/)).
 

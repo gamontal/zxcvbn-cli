@@ -5,13 +5,14 @@ var cli = require('commander');
 var chalk = require('chalk');
 var pkg = require('./package');
 
+// option parsing
 cli
   .version(pkg.version)
   .description('A realistic password strength estimator.')
   .option('-l, --limit-results', 'display the password score, a warning (if any), and suggestions (if any)')
   .option('-S, --sequence', 'display match sequence along with the results')
   .option('-s, --crack-times-sec', 'display crack time estimations in seconds')
-  .option('--no-color', 'disable output colors')
+  .option('--no-color', 'disable color support')
   .arguments('<password>')
   .action(function (password) {
     pwd = password;
@@ -30,6 +31,7 @@ cli.on('--help', function () {
 
 cli.parse(process.argv);
 
+// call --help if no arguments are passed
 if (typeof pwd === 'undefined') {
   cli.outputHelp();
   process.exit(0);
@@ -37,11 +39,11 @@ if (typeof pwd === 'undefined') {
 
 var res = zxcvbn(pwd);
 var output = function (res) {
-  if (cli.limitResults) { console.log('\nPassword:\t' + res.password + '\nScore:\t\t(' + res.score + ' / 4)'); } else {
+  if (cli.limitResults) { console.log('\nPassword:\t' + res.password + '\n\nScore:\t\t[' + res.score + ' / 4]'); } else {
     console.log('\nPassword:\t' + res.password +
-                '\nScore:\t\t' + '(' + res.score + ' / 4)' +
+                '\nScore:\t\t' + '[' + res.score + ' / 4]' +
                 '\nCalc time:\t' + res.calc_time + ' ms' +
-                '\nGuesses:\t' + res.guesses + ' (OOM: ' + res.guesses_log10.toFixed(3) + ')');
+                '\nGuesses:\t' + res.guesses + ' (' + res.guesses_log10.toFixed(3) + ')');
     if (cli.crackTimesSec) {
       console.log('\nCrack time estimations:\n\n' +
                   '100 / hour:\t' + res.crack_times_seconds.online_throttling_100_per_hour +

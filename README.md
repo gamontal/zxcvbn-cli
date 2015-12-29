@@ -45,6 +45,12 @@ $ zxcvbn --help
 
 ```
 
+## Screenshots
+
+![](https://github.com/gmontalvoriv/zxcvbn-cli/blob/master/screenshots/sc1.png)
+
+![](https://github.com/gmontalvoriv/zxcvbn-cli/blob/master/screenshots/sc2.png)
+
 ### Notes:
 
 - Consider adding an alias for this command in your bash_profile if you are having trouble typing it.

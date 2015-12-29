@@ -7,6 +7,7 @@ _/\/\/\/\/\__/\/\__/\/\____/\/\/\/\______/\______/\/\/\/\____/\/\__/\/\_____/\/\
 ___________________________________________________________________________________________________________
 ```
 [![Build Status](https://travis-ci.org/gmontalvoriv/zxcvbn-cli.svg)](https://travis-ci.org/gmontalvoriv/zxcvbn-cli)
+[![npm version](https://img.shields.io/npm/v/zxcvbn-cli.svg?style=flat)](https://www.npmjs.com/package/zxcvbn-cli)
 
 A CLI for zxcvbn ([Dropbox's realistic password strength estimator](https://blogs.dropbox.com/tech/2012/04/zxcvbn-realistic-password-strength-estimation/)).
 

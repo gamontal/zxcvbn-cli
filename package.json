@@ -1,0 +1,39 @@
+{
+  "name": "zxcvbn-cli",
+  "version": "1.0.0",
+  "homepage": "https://github.com/gmontalvoriv/zxcvbn-cli",
+  "description": "A CLI for zxcvbn (Dropbox's realistic password strength estimator).",
+  "main": "cli.js",
+  "bin": {
+    "zxcvbn": "cli.js"
+  },
+  "scripts": {
+    "test": "./node_modules/jshint/bin/jshint cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gmontalvoriv/zxcvbn-cli"
+  },
+  "bugs": {
+    "url": "https://github.com/gmontalvoriv/zxcvbn-cli/issues"
+  },
+  "files": [
+    "cli.js"
+  ],
+  "keywords": [
+    "password",
+    "generator",
+    "dropbox"
+  ],
+  "preferGlobal": true,
+  "author": "Gabriel Montalvo",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^1.1.1",
+    "commander": "^2.9.0",
+    "zxcvbn": "^4.2.0"
+  },
+   "devDependencies": {
+    "jshint": "^2.8.0"
+  }
+}

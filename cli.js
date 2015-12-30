@@ -3,6 +3,7 @@
 var zxcvbn = require('zxcvbn');
 var cli = require('commander');
 var chalk = require('chalk');
+var Table = require('cli-table');
 var pkg = require('./package');
 
 // option parsing
@@ -37,33 +38,53 @@ if (typeof pwd === 'undefined') {
   process.exit(0);
 }
 
+var table = new Table({
+  head: [chalk.cyan('Guesses'), chalk.cyan('Time estimate')],
+  style: {
+    compact : true,
+    head: [],
+    'padding-left': 2,
+    'padding-right': 2 }
+});
+
+var boxProp = {
+  chars: { 'top-mid': '', 'bottom-mid': '', 'left-mid': '', 'mid': '' , 'mid-mid': '', 'right-mid': '', 'middle': '' },
+  style: { 'padding-left': 2, 'padding-right': 2, head: [] }
+};
+
+var htable = new Table(boxProp);
+
 var res = zxcvbn(pwd);
 var output = function (res) {
   if (cli.limitResults) { console.log('\nPassword:\t' + res.password + '\n\nScore:\t\t[' + res.score + ' / 4]'); } else {
     console.log('\nPassword:\t' + res.password +
-                '\nScore:\t\t' + '[' + res.score + ' / 4]' +
-                '\nCalc time:\t' + res.calc_time + ' ms' +
-                '\nGuesses:\t' + res.guesses + ' (' + res.guesses_log10.toFixed(3) + ')');
+                '\n\nScore:\t\t' + '[' + res.score + ' / 4]' +
+                '\n\nCalc time:\t' + res.calc_time + ' ms' +
+                '\n\nGuesses:\t' + res.guesses + ' (' + res.guesses_log10.toFixed(3) + ')');
+
     if (cli.crackTimesSec) {
-      console.log('\nCrack time estimations:\n\n' +
-                  '100 / hour:\t' + res.crack_times_seconds.online_throttling_100_per_hour +
-                  ' (throttled online attack)' + '\n10  / second:\t' +
-                  res.crack_times_seconds.online_no_throttling_10_per_second +
-                  ' (unthrottled online attack)' + '\n10k / second:\t' +
-                  res.crack_times_seconds.offline_slow_hashing_1e4_per_second +
-                  ' (offline attack, slow hash, many cores)' + '\n10B / second:\t' +
-                  res.crack_times_seconds.offline_fast_hashing_1e10_per_second +
-                  ' (offline attack, fast hash, many cores)');
+      console.log(chalk.underline('\nCrack time estimations:\n'));
+
+      table.push(
+        { '100 / hour': [res.crack_times_seconds.online_throttling_100_per_hour + ' (throttled online attack)'] },
+        { '10  / second': [res.crack_times_seconds.online_no_throttling_10_per_second + ' (unthrottled online attack)'] },
+        { '10k / second': [res.crack_times_seconds.offline_slow_hashing_1e4_per_second + ' (offline attack, slow hash, many cores)'] },
+        { '10B / second': [ res.crack_times_seconds.offline_fast_hashing_1e10_per_second + ' (offline attack, fast hash, many cores)'] }
+      );
+
+      console.log(table.toString());
+
     } else {
-      console.log('\nCrack time estimations:\n\n' +
-                  '100 / hour:\t' + res.crack_times_display.online_throttling_100_per_hour +
-                  ' (throttled online attack)' + '\n10  / second:\t' +
-                  res.crack_times_display.online_no_throttling_10_per_second +
-                  ' (unthrottled online attack)' + '\n10k / second:\t' +
-                  res.crack_times_display.offline_slow_hashing_1e4_per_second +
-                  ' (offline attack, slow hash, many cores)' + '\n10B / second:\t' +
-                  res.crack_times_display.offline_fast_hashing_1e10_per_second +
-                  ' (offline attack, fast hash, many cores)');
+      console.log(chalk.underline('\nCrack time estimations') + ':\n');
+
+      table.push(
+        { '100 / hour': [res.crack_times_display.online_throttling_100_per_hour + ' (throttled online attack)'] },
+        { '10  / second': [res.crack_times_display.online_no_throttling_10_per_second + ' (unthrottled online attack)'] },
+        { '10k / second': [res.crack_times_display.offline_slow_hashing_1e4_per_second + ' (offline attack, slow hash, many cores)'] },
+        { '10B / second': [ res.crack_times_display.offline_fast_hashing_1e10_per_second + ' (offline attack, fast hash, many cores)'] }
+      );
+
+      console.log(table.toString());
     }
   }
 
@@ -90,7 +111,6 @@ var output = function (res) {
 
     for (var s in res.sequence) {
       console.log('');
-      console.log('_______________________________________________\n');
       var count = 0;
 
       for (var p in res.sequence[s]) {
@@ -109,14 +129,14 @@ var output = function (res) {
         }
 
         if (count === 2) {
-          console.log(' \'' + chalk.yellow(token) + '\'');
-          console.log(' Pattern:\t\t' + pattern);
+          htable.push(['\'' + chalk.yellow.bold(token) + '\'', '']);
+          htable.push(['Pattern:', pattern]);
         }
-        var tabs = '\t\t'; // I feel like I'm obligated to do this... looking for a better way to format the output...
-        if (p.length >= 13) { tabs = '\t'; } else if (p.length <= 4) { tabs = '\t\t\t'; }
-        console.log(' ' + formatStr(p) + ': ' + tabs + res.sequence[s][p]);
+        htable.push([formatStr(p) + ': ', res.sequence[s][p]]);
         count++;
       }
+      console.log(htable.toString());
+      htable = new Table(boxProp);
     }
     console.log('');
   }
@@ -130,3 +150,4 @@ function formatStr(str) {
   }
   return frags.join(' ');
 }
+

@@ -18,7 +18,8 @@
     "url": "https://github.com/gmontalvoriv/zxcvbn-cli/issues"
   },
   "files": [
-    "cli.js"
+    "cli.js",
+    "index.js"
   ],
   "keywords": [
     "password",

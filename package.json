@@ -8,7 +8,7 @@
     "zxcvbn": "cli.js"
   },
   "scripts": {
-    "test": "./node_modules/jshint/bin/jshint cli.js"
+    "test": "./node_modules/jshint/bin/jshint cli.js && ./node_modules/jshint/bin/jshint ./lib/index.js"
   },
   "repository": {
     "type": "git",

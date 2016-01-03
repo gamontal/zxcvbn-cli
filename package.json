@@ -39,6 +39,8 @@
   "devDependencies": {
     "jshint": "^2.8.0",
     "chai": "*",
+    "mocha": "*",
+    "sinon": "*",
     "mocha-sinon": "*"
   }
 }

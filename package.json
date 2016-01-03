@@ -8,7 +8,7 @@
     "zxcvbn": "cli.js"
   },
   "scripts": {
-    "test": "./node_modules/jshint/bin/jshint cli.js && ./node_modules/jshint/bin/jshint ./lib/index.js"
+    "test": "mocha test.js && ./node_modules/jshint/bin/jshint ./lib/index.js"
   },
   "repository": {
     "type": "git",
@@ -37,6 +37,8 @@
     "zxcvbn": "^4.2.0"
   },
   "devDependencies": {
-    "jshint": "^2.8.0"
+    "jshint": "^2.8.0",
+    "chai": "*",
+    "mocha-sinon": "*"
   }
 }

@@ -8,7 +8,7 @@
     "zxcvbn": "cli.js"
   },
   "scripts": {
-    "test": "mocha test.js && ./node_modules/jshint/bin/jshint ./lib/index.js"
+    "test": "./node_modules/mocha/bin/mocha test.js && ./node_modules/jshint/bin/jshint ./lib/index.js"
   },
   "repository": {
     "type": "git",

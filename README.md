@@ -52,10 +52,6 @@ $ zxcvbn --help
 - Consider adding an alias for this command in your bash_profile if you are having trouble typing it.
 - Make sure to surround your password in quotes if it contains special characters.
 
-## Contribute
-
-Contributions are always welcomed.
-
 ## License
 
 MIT © [Gabriel Montalvo](http://gmontalvoriv.github.io/)

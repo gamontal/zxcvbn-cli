@@ -8,6 +8,7 @@ var pkg = require('./package');
 cli
   .version(pkg.version)
   .description('A realistic password strength estimator.')
+  .option('-j, --json', 'json-encode zxcvbn results and output directly')
   .option('-l, --limit-results', 'display the password score, a warning (if any), and suggestions (if any)')
   .option('-S, --sequence', 'display match sequence along with the results')
   .option('-s, --crack-times-sec', 'display crack time estimations in seconds')
@@ -36,10 +37,10 @@ if (typeof pwd === 'undefined') {
 }
 
 var options = {
+  jsonOutput: cli.json,
   limitResults: cli.limitResults,
   sequence: cli.sequence,
   crackTimesSec: cli.crackTimesSec
 };
 
 sResults.output(pwd, options);
-

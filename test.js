@@ -1,4 +1,5 @@
 var expect = require('chai').expect;
+require('mocha');
 require('mocha-sinon');
 var outputData = require('./lib/index');
 
@@ -36,6 +37,17 @@ describe('output()', function() {
     message = console_log.shift();
     expect(message).to.match(/Password:.*correcthorsebatterystaple/m);
     expect(message).to.match(/Score:.*[4 / 4]/m);
+  });
+
+  it('should accept user data and penalize given words', function() {
+    // confirm password gets 4/4 without userdata
+    outputData.output('incorrecthorsebatteries', options);
+    expect(console.log.calledWith('\nPassword:\tincorrecthorsebatteries\n\nScore:\t\t[4 / 4]')).to.be.true;
+
+    // add userdata
+    options.data = ['incorrect', 'horse'];
+    outputData.output('incorrecthorsebatteries', options);
+    expect(console.log.calledWith('\nPassword:\tincorrecthorsebatteries\n\nScore:\t\t[3 / 4]')).to.be.true;
   });
 
   it('should output raw results as a json-encoded object when -j option is enabled', function() {

@@ -13,9 +13,19 @@ cli
   .option('-S, --sequence', 'display match sequence along with the results')
   .option('-s, --crack-times-sec', 'display crack time estimations in seconds')
   .option('--no-color', 'disable color support')
-  .arguments('<password>')
-  .action(function (password) {
+  .arguments('<password> [userdata]')
+  .action(function (password, userdata) {
     pwd = password;
+
+    if (! userdata) {
+      data = [];
+    } else {
+      try {
+        data = JSON.parse(userdata);
+      } catch (error) {
+        data = userdata.split(' ');
+      }
+    }
   });
 
 cli.on('--help', function () {
@@ -37,6 +47,7 @@ if (typeof pwd === 'undefined') {
 }
 
 var options = {
+  data: data,
   jsonOutput: cli.json,
   limitResults: cli.limitResults,
   sequence: cli.sequence,

@@ -1,12 +1,15 @@
 #!/usr/bin/env node
 
-var sResults = require('./lib/index');
-var cli = require('commander');
-var pkg = require('./package');
+import sResults from './lib/index.js';
+import { Command } from 'commander';
+
+var pwd;
+var data;
+
+const cli = new Command();
 
 // option parsing
 cli
-  .version(pkg.version)
   .description('A realistic password strength estimator.')
   .option('-j, --json', 'json-encode zxcvbn results and output directly')
   .option('-l, --limit-results', 'display the password score, a warning (if any), and suggestions (if any)')
@@ -40,6 +43,7 @@ cli.on('--help', function () {
 });
 
 cli.parse(process.argv);
+const opts = cli.opts()
 
 if (typeof pwd === 'undefined') {
   cli.outputHelp();
@@ -48,10 +52,11 @@ if (typeof pwd === 'undefined') {
 
 var options = {
   data: data,
-  jsonOutput: cli.json,
-  limitResults: cli.limitResults,
-  sequence: cli.sequence,
-  crackTimesSec: cli.crackTimesSec
+  jsonOutput: opts.json,
+  limitResults: opts.limitResults,
+  sequence: opts.sequence,
+  crackTimesSec: opts.crackTimesSec
 };
+console.log(options);
 
 sResults.output(pwd, options);

@@ -39,6 +39,7 @@ $ zxcvbn --help
 
     -h, --help             output usage information
     -V, --version          output the version number
+    -j, --json             json-encode zxcvbn results and output directly
     -l, --limit-results    display the password score, a warning (if any), and suggestions (if any)
     -S, --sequence         display match sequence along with the results
     -s, --crack-times-sec  display crack time estimations in seconds

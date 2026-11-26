@@ -57,6 +57,5 @@ var options = {
   sequence: opts.sequence,
   crackTimesSec: opts.crackTimesSec
 };
-console.log(options);
 
 sResults.output(pwd, options);
